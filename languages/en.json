@@ -2,5 +2,38 @@
     "head": {
         "title":"Python School",
         "description":"Python School is a free and open-source resource for learning Python."
+    },
+    "home": {
+        "title":"Learn Python with Python School",
+        "description":"Python School is a free and open-source resource for learning Python. It is a collection of lessons, examples, and exercises that will teach you the basics of Python programming. Whether you are a beginner or an experienced programmer, Python School has something for you.",
+        "cta":"Get Started",
+        "section_rocket_title":"Accelerated Learning",
+        "section_rocket_description":"Python School is designed to help you learn Python quickly and efficiently. Our lessons are short and to the point, so you can learn at your own pace.",
+        "section_career_title":"Career Opportunities",
+        "section_career_description":"Python is one of the most popular programming languages in the world. By learning Python, you will open up a world of career opportunities in software development, data science, and more.",
+        "section_community_title":"Join the Community",
+        "section_community_description":"Python School is more than just a website. It is a community of learners who are passionate about Python and programming. Join us and start learning today!",
+        "ai_title":"Learn with Artificial Intelligence",
+        "ai_description":"Use your own chatGPT API to learn Python with the help of artificial intelligence. Ask questions, get answers, and learn Python in a whole new way.",
+        "ai_cta":"See How It Works",
+        "ia_api_placeholder":"Enter your API address",
+        "ia_api_button":"Connect",
+        "ia_api_error":"Invalid API address. Please try again.",
+        "ia_api_loading":"Connecting to API...",
+        "ia_api_connected":"Connected to API."
+    },
+    "header": {
+        "home":"Home",
+       "modules": "Modules",
+       "dashboard":"Dashboard",
+       "about":"About",
+       "languages":"Languages"
+    },
+    "footer": {
+        "copyright":"All rights reserved.",
+        "privacy":"Privacy Policy",
+        "terms":"Terms of Service",
+        "contact":"Contact Us",
+        "github":"Our GitHub"
     }
 }

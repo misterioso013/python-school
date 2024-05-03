@@ -1,7 +1,39 @@
 {
-    "head": {
-        "title":"Python School",
-        "description": "Escola de Python é um recurso gratuito e de código aberto para aprender Python."
-        
-    }
+  "head": {
+    "title": "Python School",
+    "description": "Escola de Python é um recurso gratuito e de código aberto para aprender Python."
+  },
+  "home": {
+    "title": "Aprenda Python com a Escola Python",
+    "ai_cta": "Veja como funciona",
+    "ai_description": "Use sua própria API chatGPT para aprender Python com a ajuda da inteligência artificial. \nFaça perguntas, obtenha respostas e aprenda Python de uma maneira totalmente nova.",
+    "ai_title": "Aprenda com Inteligência Artificial",
+    "cta": "Iniciar",
+    "description": "Python School é um recurso gratuito e de código aberto para aprender Python. \nÉ uma coleção de lições, exemplos e exercícios que ensinarão o básico da programação Python. \nQuer você seja um programador iniciante ou experiente, a Python School tem algo para você.",
+    "ia_api_button": "Conectar",
+    "ia_api_connected": "Conectado à API.",
+    "ia_api_error": "Endereço de API inválido. \nPor favor, tente novamente.",
+    "ia_api_loading": "Conectando à API...",
+    "ia_api_placeholder": "Insira seu endereço de API",
+    "section_career_description": "Python é uma das linguagens de programação mais populares do mundo. \nAo aprender Python, você abrirá um mundo de oportunidades de carreira em desenvolvimento de software, ciência de dados e muito mais.",
+    "section_career_title": "Oportunidades de carreira",
+    "section_community_description": "A Python School é mais do que apenas um site. \nÉ uma comunidade de alunos apaixonados por Python e programação. \nJunte-se a nós e comece a aprender hoje!",
+    "section_community_title": "Junte-se à comunidade",
+    "section_rocket_description": "A Python School foi projetada para ajudá-lo a aprender Python de forma rápida e eficiente. \nNossas aulas são curtas e diretas, para que você possa aprender no seu próprio ritmo.",
+    "section_rocket_title": "Aprendizagem acelerada"
+  },
+  "footer": {
+    "contact": "Contate-nos",
+    "copyright": "Todos os direitos reservados.",
+    "github": "Nosso GitHub",
+    "privacy": "política de Privacidade",
+    "terms": "Termos de serviço"
+  },
+  "header": {
+    "about": "Sobre",
+    "home": "Página inicial",
+    "languages": "Idiomas",
+    "modules": "Módulos",
+    "dashboard": "Painel"
+  }
 }
