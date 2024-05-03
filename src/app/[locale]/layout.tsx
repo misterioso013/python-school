@@ -1,10 +1,17 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Chivo } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: '--font-inter',
+  display: 'swap'
+ });
+const chivo = Chivo({ subsets: ["latin"],
+  variable: '--font-chivo',
+  display: 'swap'
+ });
 
 export async function generateMetadata({params: {locale}} : {params: {locale: string}}) {
   const t = await getTranslations({locale, namespace: 'head'});
@@ -25,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang={params.locale}>
       <body className={cn(
-          "min-h-screen bg-background font-sans antialiased",inter.className)}>{children}</body>
+          "min-h-screen bg-background font-sans antialiased ",inter.className,chivo.className)}>{children}</body>
     </html>
   );
 }

@@ -2,6 +2,17 @@
   @tailwind components;
   @tailwind utilities;
 
+:root {
+  --radius: 0.5rem;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-chivo), sans-serif;
+}
   
 @layer base {
   :root {
