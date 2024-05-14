@@ -2,6 +2,7 @@ import { Inter, Chivo } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,7 +33,16 @@ export default function RootLayout({
   return (
     <html lang={params.locale}>
       <body className={cn(
-          "min-h-screen bg-background font-sans antialiased ",inter.className,chivo.className)}>{children}</body>
+          "min-h-screen bg-background font-sans antialiased ",inter.className,chivo.className)}>
+            <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+            </ThemeProvider>
+          </body>
     </html>
   );
 }

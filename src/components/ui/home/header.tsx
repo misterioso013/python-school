@@ -4,6 +4,7 @@ import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet"
 import { CheckIcon, GraduationCap, Languages, MenuIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTranslations } from "next-intl"
+import { ModeToggle } from "@/components/modeToggle"
 
 type MenuItem = Array<{
     title: string
@@ -72,6 +73,7 @@ export function Header({locale}: {locale: string}) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            <ModeToggle />
           </nav>
           <div className="flex items-center gap-4">
             <Sheet>
@@ -97,19 +99,24 @@ export function Header({locale}: {locale: string}) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="start" className="w-40">
                       <DropdownMenuItem>
-                        <Link className="flex items-center justify-between" href="#">
+                        <Link className="flex items-center justify-between" href={locale === "en" ? "/pt-BR" : "/en"}>
                           <span>English</span>
+                          {locale === "en" &&
                           <CheckIcon className="w-4 h-4" />
+                          }
                         </Link>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Link className="flex items-center justify-between" href="#">
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                        <Link className="flex items-center justify-between" href={locale === "pt-BR" ? "/en" : "/pt-BR"}>
                           <span>Português (Brasil)</span>
+                          {locale === "pt-BR" &&
                           <CheckIcon className="w-4 h-4" />
-                        </Link>
+                          }
+                          </Link>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
+                  <ModeToggle />
                 </div>
               </SheetContent>
             </Sheet>
