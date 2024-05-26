@@ -1,10 +1,9 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Header } from "@/components/ui/home/header"
 import { useTranslations } from "next-intl"
 import { Footer } from "@/components/ui/home/footer"
 import { BriefcaseIcon, RocketIcon, SparklesIcon } from "lucide-react"
+import { GetApiUrl } from "@/components/home/getApiUrl"
 
 export default function Home({params: {locale}}: {params: {locale: string}}) {
   const t = useTranslations('home')
@@ -71,10 +70,7 @@ export default function Home({params: {locale}}: {params: {locale: string}}) {
               {t("ai_description")} <Link href="#" className="hover:underline text-green-600">{t("ai_cta")}.</Link>
             </p>
             <div className="flex justify-center">
-              <div className="flex w-full max-w-sm items-center space-x-2">
-                <Input className="flex-1" placeholder={t("ia_api_placeholder")} type="text" />
-                <Button type="submit">{t('ia_api_button')}</Button>
-              </div>
+              <GetApiUrl />
             </div>
           </div>
         </section>
