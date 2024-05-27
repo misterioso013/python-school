@@ -1,5 +1,5 @@
 "use client"
-import React, {use, useEffect, useState} from "react"
+import React, {useEffect, useState} from "react"
 import { useFormStatus } from "react-dom";
 import {z} from "zod"
 import { Button } from "@/components/ui/button"
@@ -12,10 +12,9 @@ type Props = {
     ia_api_error: string
     ia_api_loading: string
     ia_api_connected: string
-    defaultUrl: string | undefined
 }
-export function GetApiUrlForm({ia_api_placeholder, ia_api_button, ia_api_error, ia_api_loading, ia_api_connected, defaultUrl}: Props) {
-    const [url, setUrl] = useState(defaultUrl)
+export function GetApiUrlForm({ia_api_placeholder, ia_api_button, ia_api_error, ia_api_loading, ia_api_connected}: Props) {
+    const [url, setUrl] = useState("")
     const { pending, data } = useFormStatus();
     const { toast } = useToast();
     const schema = z.string().url()
@@ -52,6 +51,13 @@ export function GetApiUrlForm({ia_api_placeholder, ia_api_button, ia_api_error, 
 
          }
     }, [data])
+
+    useEffect(() => {
+        const url = localStorage.getItem('ia_api_url')
+        if (url) {
+            setUrl(url)
+        }
+    }, [])
 
     return(
         <>
