@@ -5,6 +5,7 @@ import { Footer } from "@/components/ui/home/footer"
 import { BriefcaseIcon, RocketIcon, SparklesIcon } from "lucide-react"
 import { GetApiUrl } from "@/components/home/getApiUrl"
 import { ChatLayout } from "@/components/chat/layout"
+import Image from "next/image"
 
 export default function Home({params: {locale}}: {params: {locale: string}}) {
   const t = useTranslations('home')
@@ -28,7 +29,7 @@ export default function Home({params: {locale}}: {params: {locale: string}}) {
                 </Link>
               </div>
             </div>
-            <img
+            <Image
               alt="Python Programming"
               className="rounded-xl object-cover"
               height="400"

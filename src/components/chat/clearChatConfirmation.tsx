@@ -10,11 +10,16 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
+import { Button } from "../ui/button"
 
 export function ClearChatConfirmation({clearChat} : {clearChat: () => void}) {
     return (
         <AlertDialog>
-            <AlertDialogTrigger><Trash2 /></AlertDialogTrigger>
+            <AlertDialogTrigger>
+                <Button className="bg-red-500 text-white">
+                <Trash2 />
+                </Button>
+                </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>Clear Chat History</AlertDialogTitle>

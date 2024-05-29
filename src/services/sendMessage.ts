@@ -1,7 +1,8 @@
 import {schemaPromptResponse, schema} from '../components/chat/schemas'
 
-export const sendMessage = async (topic: string, prompt: string, history: boolean, chat: any, setChat: any, setPrompt: any, url: string) => {
-    setChat({...chat, history: [...chat.history, {role: 'user', parts: [{text: prompt}]}]})
+export const sendMessage = async (topic: string, prompt: string, history: boolean, chat: any, setChat: any, setPrompt: any, url: string, toast: any) => {
+    try {
+        setChat({...chat, history: [...chat.history, {role: 'user', parts: [{text: prompt}]}]})
     setPrompt('')
     
     const response = await fetch(schema.parse(url) + '/prompt', {
@@ -15,4 +16,11 @@ export const sendMessage = async (topic: string, prompt: string, history: boolea
     const parsedData = schemaPromptResponse.parse(data)
 
     setChat({...chat, history: [...chat.history, {role: 'user', parts: [{text: prompt}]}, {role: 'model', parts: [{text: parsedData.response}]}]})
+    } catch (error) {
+        toast({
+            title: 'Error',
+            description: 'Error sending message, please try again',
+        })
+    }
+        
 }

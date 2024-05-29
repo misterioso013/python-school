@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState, useRef } from "react"
 import { X, Bot, SendHorizontal} from "lucide-react"
-import {Code} from "@/components/Code"
 import {
     Drawer,
     DrawerClose,
@@ -13,13 +12,12 @@ import {
     DrawerTrigger,
   } from "@/components/ui/drawer"
 
-  import { useToast } from "@/components/ui/use-toast"
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useToast } from "@/components/ui/use-toast"
 import { Button } from "../ui/button"
 import { Textarea } from "../ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { z } from "zod"
+import { ChatHistory } from "./chat"
 import {schema, schemaHistory} from "./schemas"
 import { clearHistory } from "@/services/clearHistory"
 import { getHistory } from "@/services/getHistory"
@@ -39,52 +37,6 @@ export function ChatLayout({topic, history}: Props) {
     
     const urlValid = schema.safeParse(url)
     const { toast } = useToast()
-
-    const chatHistory = chat.history.length === 0 ? (
-        <div className="flex">
-            <div className="flex-shrink-0">
-                <Avatar>
-                    <AvatarImage className="h-10 w-10" src="https://avatar.iran.liara.run/public/job/police/male" alt="model" />
-                    <AvatarFallback>M</AvatarFallback>
-                </Avatar>
-            </div>
-            <div className="ml-4">
-                <div className="text-sm font-medium text-gray-900">model</div>
-                <div className="text-sm text-gray-500">
-                    <Code textMarkdwon="Você tem alguma dúvida? Pergunte-me qualquer coisa!"
-                    />
-                </div>
-            </div>
-        </div>
-    ) :
-    chat.history.map((message, index) => {
-        return (
-            <div key={index} className="flex items-center gap-4">
-                <div className="flex-shrink-0">
-                    {message.role === 'user' ? (
-                    <Avatar>
-                    <AvatarImage className="h-10 w-10" src="https://avatar.iran.liara.run/public" alt={message.role} />
-                    <AvatarFallback>U</AvatarFallback>
-                    </Avatar>
-                    )
-                    : (
-                        <Avatar>
-                    <AvatarImage className="h-10 w-10" src="https://avatar.iran.liara.run/public/job/police/male" alt={message.role} />
-                    <AvatarFallback>M</AvatarFallback>
-                    </Avatar>
-                    )
-                    }
-
-                </div>
-                <div className="ml-4">
-                    <div className="text-sm font-medium text-gray-900">{message.role}</div>
-                    <div className="text-sm text-gray-500">
-                        <Code textMarkdwon={message.parts[0].text} />
-                        </div>
-                </div>
-            </div>
-        )
-    })
 
     useEffect(() => {
         const getUrl = localStorage.getItem('ia_api_url')
@@ -108,7 +60,7 @@ export function ChatLayout({topic, history}: Props) {
     }, [chat])
 
     const clearChat = () => clearHistory(url, setChat, toast)
-    const send = () => sendMessage(topic, prompt, history, chat, setChat, setPrompt, url)
+    const send = () => sendMessage(topic, prompt, history, chat, setChat, setPrompt, url, toast)
         
     // if url is not valid, return early
     if (!urlValid.success) {
@@ -136,7 +88,7 @@ export function ChatLayout({topic, history}: Props) {
     <ScrollArea className="h-[400px]" style={{userSelect: 'text'}}>
         <div className="flex flex-col items-center">
         <div ref={chatRef} className="p-4 flex flex-col gap-4 items-start">
-        {chatHistory}
+            <ChatHistory chat={chat} />
         </div>
         </div>
     </ScrollArea>

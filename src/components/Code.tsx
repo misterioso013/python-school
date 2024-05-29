@@ -9,7 +9,6 @@ export function Code({textMarkdwon} : {textMarkdwon: string}) {
     return (
         <Markdown
             remarkPlugins={[remarkGfm]}
-            children={textMarkdwon}
             components={{
                 code(props) {
                     const {children, className, node, ref, ...rest} = props
@@ -19,18 +18,19 @@ export function Code({textMarkdwon} : {textMarkdwon: string}) {
                         <div className="absolute top-2 right-2">
                             <CodeClipboard>{children}</CodeClipboard>
                         </div>
-                    <SyntaxHighlighter
-                        {...rest}
-                        PreTag="div"
-                        children={String(children).replace(/\n$/, '')}
-                        language={match[1]}
-                        style={materialDark}
-                        showLineNumbers={true}
-                        wrapLines={true}
-                        lineProps={(lineNumber) => ({
-                            style: {display: 'block'}
-                        })}
-                    />
+                          <SyntaxHighlighter
+                            {...rest}
+                            PreTag="div"
+                            language={match[1]}
+                            style={materialDark}
+                            showLineNumbers={true}
+                            wrapLines={true}
+                            lineProps={(lineNumber) => ({
+                                style: {display: 'block'}
+                            })}
+                          >
+                            {String(children).replace(/\n$/, '')}
+                          </SyntaxHighlighter>
                     </div>
                     ) : (
                     <code {...rest} className={className}>
@@ -39,7 +39,9 @@ export function Code({textMarkdwon} : {textMarkdwon: string}) {
                     )
                 }
                 }}
-        />
+        >
+            {textMarkdwon}
+        </Markdown>
     )
 }
 
