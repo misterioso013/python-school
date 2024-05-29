@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl"
 import { Footer } from "@/components/ui/home/footer"
 import { BriefcaseIcon, RocketIcon, SparklesIcon } from "lucide-react"
 import { GetApiUrl } from "@/components/home/getApiUrl"
+import { ChatLayout } from "@/components/chat/layout"
 
 export default function Home({params: {locale}}: {params: {locale: string}}) {
   const t = useTranslations('home')
@@ -74,6 +75,7 @@ export default function Home({params: {locale}}: {params: {locale: string}}) {
             </div>
           </div>
         </section>
+        <ChatLayout topic="Pagina inical do Python School" history={true} />
       </main>
       <Footer />
     </>

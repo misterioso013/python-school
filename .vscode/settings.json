@@ -1,5 +1,6 @@
 {
     "deepscan.enable": true,
+    "editor.formatOnSave": true,
     // i18n-ally
     "i18n-ally.localesPaths": ["./languages"],
     "i18n-ally.keystyle": "nested"
