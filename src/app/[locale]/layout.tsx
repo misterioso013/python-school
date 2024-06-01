@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
   params: { locale: string };
 }>) {
   return (
+    <ClerkProvider>
     <html lang={params.locale}>
       <body className={cn(
           "min-h-screen bg-background font-sans antialiased ",inter.className,chivo.className)}>
@@ -46,5 +48,6 @@ export default function RootLayout({
             </ThemeProvider>
           </body>
     </html>
+    </ClerkProvider>
   );
 }
