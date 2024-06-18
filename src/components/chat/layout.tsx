@@ -50,7 +50,7 @@ export function ChatLayout({topic, history}: Props) {
     }, [url])
 
     useEffect(() => {
-        scrollToBottom()
+        scrollToBottom(chatRef)
     }, [chat])
 
     const clearChat = () => clearHistory(url, setChat, toast)
