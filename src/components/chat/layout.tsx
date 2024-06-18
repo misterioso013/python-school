@@ -23,6 +23,7 @@ import { clearHistory } from "@/services/clearHistory"
 import { getHistory } from "@/services/getHistory"
 import {sendMessage } from "@/services/sendMessage"
 import { ClearChatConfirmation } from "./clearChatConfirmation"
+import { scrollToBottom } from "@/utils/scrollToBottom"
 type Props = {
     topic: string
     history: boolean
@@ -48,13 +49,6 @@ export function ChatLayout({topic, history}: Props) {
         }
     }, [url])
 
-    const scrollToBottom = () => {
-        chatRef.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end',
-            inline: 'nearest'
-        })
-    }
     useEffect(() => {
         scrollToBottom()
     }, [chat])
