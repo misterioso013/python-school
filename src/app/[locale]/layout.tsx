@@ -1,4 +1,4 @@
-import { Inter, Chivo } from "next/font/google";
+import { Inter, Chivo, Fira_Code, JetBrains_Mono, Source_Code_Pro } from "next/font/google";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
@@ -13,6 +13,22 @@ const inter = Inter({
  });
 const chivo = Chivo({ subsets: ["latin"],
   variable: '--font-chivo',
+  display: 'swap'
+ });
+
+const fira_code = Fira_Code({ subsets: ["latin"],
+  variable: '--font-fira-code',
+  display: 'swap'
+
+ });
+
+const jetbrains_mono = JetBrains_Mono({ subsets: ["latin"],
+  variable: '--font-jetbrains-mono',
+  display: 'swap'
+ });
+
+const source_code_pro = Source_Code_Pro({ subsets: ["latin"],
+  variable: '--font-source-code-pro',
   display: 'swap'
  });
 
@@ -36,7 +52,7 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang={params.locale}>
       <body className={cn(
-          "min-h-screen bg-background font-sans antialiased ",inter.className,chivo.className)}>
+          "min-h-screen bg-background font-sans antialiased ",inter.variable,chivo.variable,fira_code.variable,jetbrains_mono.variable,source_code_pro.variable)}>
             <ThemeProvider
             attribute="class"
             defaultTheme="system"

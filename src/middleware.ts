@@ -18,5 +18,7 @@ export default clerkMiddleware((auth, req) => {
 });
 export const config = {
   // Match only internationalized pathnames
-  matcher: ['/', '/(pt-BR|en)/:path*']
+  matcher: [
+    '/((?!api|_next/static|_next/image|favicon.ico|apple-touch-icon.png|favicon.svg|images/.*|react-py.*).*)'
+  ]
 };
