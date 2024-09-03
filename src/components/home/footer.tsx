@@ -23,7 +23,7 @@ export function Footer() {
             <Github className="w-5 h-5" />
             </Link>
           </nav>
-          <Link href="https://vercel.com/?utm_source=all.dev.br&utm_medium=python-school&utm_campaign=website" target="_blank"><Image alt="Vercel Logo" height={24} src="/vercel.svg" width={72} /></Link>
+          <Link href="https://vercel.com/?utm_source=all.dev.br&utm_medium=python-school&utm_campaign=website" target="_blank"><Image alt="Vercel Logo" height={24} src="/images/vercel.svg" width={72} /></Link>
         </div>
       </footer>
     )

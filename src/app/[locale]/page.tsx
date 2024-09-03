@@ -33,7 +33,7 @@ export default function Home({params: {locale}}: {params: {locale: string}}) {
               alt="Python Programming"
               className="rounded-xl object-cover"
               height="400"
-              src="/fibonacci.svg"
+              src="/images/fibonacci.svg"
               style={{
                 aspectRatio: "500/400",
                 objectFit: "cover",
