@@ -47,7 +47,7 @@ export function ChatLayout({topic, history}: Props) {
         if(urlValid.success) {
         getHistory(url, setChat, toast)
         }
-    }, [url])
+    }, [url, urlValid.success, toast])
 
     useEffect(() => {
         scrollToBottom(chatRef)
@@ -100,4 +100,3 @@ export function ChatLayout({topic, history}: Props) {
 
     )
 }
-
