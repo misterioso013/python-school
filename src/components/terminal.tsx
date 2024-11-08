@@ -6,6 +6,7 @@ import { Controls } from './controls'
 import { Loader } from './loader'
 import { Repeat2, Trash2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 
 const ps1 = '>>> '
 const ps2 = '... '
@@ -29,6 +30,20 @@ export function Terminal() {
     sendInput,
     prompt
   } = usePythonConsole()
+  const [fontSize, setFontSize] = useLocalStorage('fontSize', '16')
+  const [fontFamily, setFontFamily] = useLocalStorage('fontFamily', '--font-fira-code')
+  const [officialPackages, setOfficialPackages] = useState<{id: string, label: string, active: boolean}[]>([
+    {id: 'asciitree', label: 'AsciiTree', active: false},
+    {id: 'numpy', label: 'NumPy', active: false},
+    {id: 'pandas', label: 'Pandas', active: false},
+    {id: 'opencv-python', label: 'OpenCV', active: false},
+    {id: 'requests', label: 'Requests', active: false},
+    {id: 'scipy', label: 'SciPy', active: false},
+    {id: 'matplotlib', label: 'Matplotlib', active: false},
+  ])
+  const [micropipPackages, setMicropipPackages] = useState<{id: string, label: string, active: boolean}[]>([
+    {id: 'python-cowsay', label: 'Cowsay', active: false},
+  ])
 
   const textArea = useRef<HTMLTextAreaElement>(null)
 
@@ -135,6 +150,14 @@ export function Terminal() {
               onClick: reset
             }
           ]}
+        fontSize={fontSize}
+        fontFamily={fontFamily}
+        setFontSize={setFontSize}
+        setFontFamily={setFontFamily}
+        setOfficialPackages={setOfficialPackages}
+        setMicropipPackages={setMicropipPackages}
+        official={officialPackages}
+        micropip={micropipPackages}
         />
       </div>
 
