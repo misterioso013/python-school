@@ -9,6 +9,7 @@ import { UserStats } from "@/components/dashboard/UserStats"
 import { Certificates } from "@/components/dashboard/Certificates"
 import { auth } from "@clerk/nextjs/server"
 import { prisma } from "@/lib/prisma"
+import { revalidatePath } from 'next/cache'
 
 async function getUserCertificates(userId: string) {
   const user = await prisma.user.findFirst({
@@ -65,6 +66,32 @@ export default async function Dashboard({params: {locale}}: {params: {locale: st
   const certificates = userId ? await getUserCertificates(userId) : []
   const progress = userId ? await getModuleProgress(userId) : []
 
+  async function requestCertificate(moduleId: string) {
+    'use server'
+
+    const { userId } = auth()
+    if (!userId) return
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/${locale}/api/certificates/issue`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ moduleId })
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to issue certificate')
+      }
+
+      // Revalidar a página para mostrar o novo certificado
+      revalidatePath(`/${locale}/dashboard`)
+    } catch (error) {
+      console.error('Error issuing certificate:', error)
+    }
+  }
+
   return (
     <>
       <Header locale={locale} />
@@ -89,10 +116,7 @@ export default async function Dashboard({params: {locale}}: {params: {locale: st
         <Certificates
           certificates={certificates}
           progress={progress}
-          onRequestCertificate={async (moduleId) => {
-            'use server'
-            // A lógica de solicitação será implementada no cliente
-          }}
+          onRequestCertificate={requestCertificate}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
