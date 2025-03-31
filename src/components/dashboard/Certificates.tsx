@@ -12,12 +12,18 @@ interface Certificate {
   issuedAt: string
 }
 
+interface ModuleProgress {
+  moduleId: string
+  progress: number
+}
+
 interface CertificatesProps {
   certificates: Certificate[]
+  progress: ModuleProgress[]
   onRequestCertificate: (moduleId: string) => Promise<void>
 }
 
-export function Certificates({ certificates, onRequestCertificate }: CertificatesProps) {
+export function Certificates({ certificates, progress, onRequestCertificate }: CertificatesProps) {
   const [downloading, setDownloading] = useState<string | null>(null)
 
   const handleDownload = async (certificateId: string) => {
@@ -54,6 +60,7 @@ export function Certificates({ certificates, onRequestCertificate }: Certificate
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {Object.entries(moduleNames).map(([moduleId, name]) => {
           const certificate = certificates.find(cert => cert.moduleId === moduleId)
+          const moduleProgress = progress.find(p => p.moduleId === moduleId)?.progress || 0
 
           return (
             <Card key={moduleId}>
@@ -85,12 +92,16 @@ export function Certificates({ certificates, onRequestCertificate }: Certificate
                 ) : (
                   <div className="space-y-2">
                     <p className="text-sm text-gray-500">
-                      Complete todas as lições para receber seu certificado
+                      {moduleProgress === 100
+                        ? 'Você completou este módulo! Solicite seu certificado.'
+                        : `Complete todas as lições para receber seu certificado (${moduleProgress}%)`
+                      }
                     </p>
                     <Button
                       variant="outline"
                       className="w-full"
                       onClick={() => onRequestCertificate(moduleId)}
+                      disabled={moduleProgress < 100}
                     >
                       Solicitar Certificado
                     </Button>

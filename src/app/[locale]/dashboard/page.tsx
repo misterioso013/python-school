@@ -31,10 +31,39 @@ async function getUserCertificates(userId: string) {
   })) || []
 }
 
+async function getModuleProgress(userId: string) {
+  const user = await prisma.user.findFirst({
+    where: { clerkId: userId }
+  })
+
+  if (!user) return []
+
+  const progress = await prisma.progress.groupBy({
+    by: ['moduleId'],
+    where: {
+      userId: user.id,
+      completed: true
+    },
+    _count: true
+  })
+
+  const totalLessons = {
+    'basics': 10,
+    'intermediate': 15,
+    'advanced': 20
+  }
+
+  return progress.map(p => ({
+    moduleId: p.moduleId,
+    progress: Math.round((p._count / totalLessons[p.moduleId as keyof typeof totalLessons]) * 100)
+  }))
+}
+
 export default async function Dashboard({params: {locale}}: {params: {locale: string}}) {
   const t = await getTranslations('dashboard')
   const { userId } = auth()
   const certificates = userId ? await getUserCertificates(userId) : []
+  const progress = userId ? await getModuleProgress(userId) : []
 
   return (
     <>
@@ -59,6 +88,7 @@ export default async function Dashboard({params: {locale}}: {params: {locale: st
 
         <Certificates
           certificates={certificates}
+          progress={progress}
           onRequestCertificate={async (moduleId) => {
             'use server'
             // A lógica de solicitação será implementada no cliente
