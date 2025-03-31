@@ -35,5 +35,26 @@
         "terms":"Terms of Service",
         "contact":"Contact Us",
         "github":"Our GitHub"
+    },
+    "dashboard": {
+        "welcome": "Welcome to your learning dashboard",
+        "next_lesson": {
+            "title": "Python Variables",
+            "description": "Learn how to create and use variables in Python, different data types, and naming best practices."
+        },
+        "modules": {
+            "basics": {
+                "title": "Python Fundamentals",
+                "description": "Learn Python basics including variables, data types, and control structures."
+            },
+            "intermediate": {
+                "title": "Intermediate Python",
+                "description": "Explore functions, classes, modules, and file handling."
+            },
+            "advanced": {
+                "title": "Advanced Python",
+                "description": "Master advanced topics like decorators, generators, concurrency, and more."
+            }
+        }
     }
 }

@@ -35,5 +35,26 @@
     "languages": "Idiomas",
     "modules": "Módulos",
     "dashboard": "Painel"
+  },
+  "dashboard": {
+    "welcome": "Bem-vindo ao seu painel de aprendizado",
+    "next_lesson": {
+      "title": "Variáveis em Python",
+      "description": "Aprenda como criar e usar variáveis em Python, os diferentes tipos de dados e boas práticas de nomenclatura."
+    },
+    "modules": {
+      "basics": {
+        "title": "Fundamentos do Python",
+        "description": "Aprenda os conceitos básicos de Python, incluindo variáveis, tipos de dados e estruturas de controle."
+      },
+      "intermediate": {
+        "title": "Python Intermediário",
+        "description": "Explore funções, classes, módulos e manipulação de arquivos."
+      },
+      "advanced": {
+        "title": "Python Avançado",
+        "description": "Domine tópicos avançados como decoradores, geradores, concorrência e mais."
+      }
+    }
   }
 }
