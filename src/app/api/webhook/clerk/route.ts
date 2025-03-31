@@ -46,9 +46,18 @@ export async function POST(req: Request) {
   if (eventType === 'user.created') {
     if (!id) return new Response('No user id provided', { status: 400 });
 
+    const { first_name, last_name, email_addresses, image_url } = evt.data;
+    const name = first_name && last_name
+      ? `${first_name} ${last_name}`
+      : first_name || 'Estudante';
+    const email = email_addresses?.[0]?.email_address;
+
     await prisma.user.create({
       data: {
-        clerkId: id
+        clerkId: id,
+        name,
+        email,
+        imageUrl: image_url
       }
     })
   }
@@ -57,6 +66,25 @@ export async function POST(req: Request) {
     await prisma.user.delete({
       where: {
         clerkId: id
+      }
+    })
+  }
+
+  if (eventType === 'user.updated') {
+    if (!id) return new Response('No user id provided', { status: 400 });
+
+    const { first_name, last_name, email_addresses, image_url } = evt.data;
+    const name = first_name && last_name
+      ? `${first_name} ${last_name}`
+      : first_name || 'Estudante';
+    const email = email_addresses?.[0]?.email_address;
+
+    await prisma.user.update({
+      where: { clerkId: id },
+      data: {
+        name,
+        email,
+        imageUrl: image_url
       }
     })
   }

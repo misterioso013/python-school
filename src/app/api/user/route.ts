@@ -1,7 +1,16 @@
+import { auth } from '@clerk/nextjs/server'
 import { prisma } from '@/lib/prisma'
 
 export async function POST(req: Request) {
+  const { userId } = auth()
+  if (!userId) {
+    return new Response('Unauthorized', { status: 401 })
+  }
+
   const { clerkId } = await req.json()
+  if (clerkId !== userId) {
+    return new Response('Unauthorized', { status: 401 })
+  }
 
   const user = await prisma.user.findUnique({
     where: { clerkId }

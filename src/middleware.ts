@@ -9,22 +9,13 @@ const intlMiddleware = createMiddleware({
   defaultLocale: 'en'
 });
 
-const isProtectedRoute = createRouteMatcher(['/:locale/dashboard(.*)']);
+const isProtectedRoute = createRouteMatcher([
+  '/:locale/dashboard(.*)',
+  '/:locale/api/certificates/download/(.*)'
+]);
 
 export default clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {
-    const { userId } = auth();
-    if (userId) {
-      try {
-        await fetch(`${req.nextUrl.origin}/api/user`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ clerkId: userId })
-        });
-      } catch (error) {
-        console.error('Failed to sync user:', error);
-      }
-    }
     auth().protect();
   }
 
@@ -34,6 +25,7 @@ export default clerkMiddleware(async (auth, req) => {
 export const config = {
   // Match only internationalized pathnames
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|apple-touch-icon.png|favicon.svg|images/.*|react-py.*).*)'
+    '/((?!_next/static|_next/image|favicon.ico|apple-touch-icon.png|favicon.svg|images/.*|react-py.*).*)',
+    '/:locale/api/certificates/download/:id*'
   ]
 };

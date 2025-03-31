@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "create-certificate": "tsx scripts/create-test-certificate.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.5",
@@ -32,6 +33,7 @@
     "@uiw/react-codemirror": "^4.22.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "jspdf": "^3.0.1",
     "lucide-react": "^0.377.0",
     "next": "14.2.3",
     "next-intl": "^3.15.0",
@@ -59,6 +61,7 @@
     "postcss": "^8.4.38",
     "prisma": "^6.5.0",
     "tailwindcss": "^3.4.4",
+    "tsx": "^4.19.3",
     "typescript": "^5.4.5"
   },
   "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"

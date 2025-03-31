@@ -21,7 +21,7 @@ cd python-school
 
 2. Instale as dependências:
 ```bash
-pnpm install
+bun install
 ```
 
 3. Configure as variáveis de ambiente:
@@ -30,16 +30,27 @@ cp example.env .env.local
 ```
 Edite o arquivo `.env.local` com suas credenciais.
 
+> Se `.env.local` não conseguir ser lido pelo prisma, tente criar um arquivo `.env` e adicionar as variáveis de ambiente lá.
+
 4. Configure o banco de dados:
 ```bash
-pnpm prisma generate
-pnpm prisma db push
+bun prisma generate
+bun prisma db push
 ```
 
 5. Inicie o servidor de desenvolvimento:
 ```bash
-pnpm dev
+bun dev
 ```
+
+## Testando a geração de certificados
+
+Para testar a geração de certificados, você pode usar o seguinte comando:
+```bash
+bun create-certificate
+```
+Agora, você poderá baixar o certificado na dashboard do usuário.
+
 
 ## Estrutura do Projeto 📁
 

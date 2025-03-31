@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Award, Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 interface Certificate {
   id: string
@@ -17,6 +18,30 @@ interface CertificatesProps {
 }
 
 export function Certificates({ certificates, onRequestCertificate }: CertificatesProps) {
+  const [downloading, setDownloading] = useState<string | null>(null)
+
+  const handleDownload = async (certificateId: string) => {
+    try {
+      setDownloading(certificateId)
+      const response = await fetch(`/pt-BR/api/certificates/download/${certificateId}`)
+
+      if (!response.ok) throw new Error('Failed to download certificate')
+
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `certificado.pdf`
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error('Error downloading certificate:', error)
+    } finally {
+      setDownloading(null)
+    }
+  }
+
   const moduleNames = {
     'basics': 'Fundamentos do Python',
     'intermediate': 'Python Intermediário',
@@ -47,9 +72,14 @@ export function Certificates({ certificates, onRequestCertificate }: Certificate
                     <p className="text-sm text-gray-500">
                       Emitido em: {new Date(certificate.issuedAt).toLocaleDateString()}
                     </p>
-                    <Button variant="outline" className="w-full" onClick={() => {}}>
+                    <Button
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => handleDownload(certificate.id)}
+                      disabled={downloading === certificate.id}
+                    >
                       <Download className="h-4 w-4 mr-2" />
-                      Download
+                      {downloading === certificate.id ? 'Baixando...' : 'Download'}
                     </Button>
                   </div>
                 ) : (
