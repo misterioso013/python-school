@@ -50,7 +50,14 @@ export async function POST(req: Request) {
     const name = first_name && last_name
       ? `${first_name} ${last_name}`
       : first_name || 'Estudante';
-    const email = email_addresses?.[0]?.email_address;
+    const email = email_addresses?.[0]?.email_address || '';
+
+    console.log('Creating user:', {
+      clerkId: id,
+      name,
+      email,
+      imageUrl: image_url
+    });
 
     await prisma.user.create({
       data: {
@@ -60,6 +67,8 @@ export async function POST(req: Request) {
         imageUrl: image_url
       }
     })
+
+    console.log('User created successfully');
   }
 
   if (eventType === 'user.deleted') {

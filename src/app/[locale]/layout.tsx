@@ -34,7 +34,7 @@ const source_code_pro = Source_Code_Pro({ subsets: ["latin"],
 
 export async function generateMetadata({params: {locale}} : {params: {locale: string}}) {
   const t = await getTranslations({locale, namespace: 'head'});
- 
+
   return {
     title: t('title'),
     description: t('description'),

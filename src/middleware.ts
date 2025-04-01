@@ -11,7 +11,9 @@ const intlMiddleware = createMiddleware({
 
 const isProtectedRoute = createRouteMatcher([
   '/:locale/dashboard(.*)',
-  '/:locale/api/certificates/download/(.*)'
+  '/:locale/api/certificates/download/(.*)',
+  '/:locale/admin(.*)',
+  '/:locale/api/admin/(.*)'
 ]);
 
 export default clerkMiddleware(async (auth, req) => {
