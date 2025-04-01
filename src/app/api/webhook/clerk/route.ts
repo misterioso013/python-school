@@ -5,15 +5,23 @@ import { prisma } from '@/lib/prisma'
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET
+  console.log('Webhook Secret:', WEBHOOK_SECRET)
 
   if (!WEBHOOK_SECRET) {
     throw new Error('Please add WEBHOOK_SECRET from Clerk Dashboard to .env')
   }
 
   const headerPayload = headers();
+  console.log('All Headers:', Object.fromEntries(headerPayload.entries()))
   const svix_id = headerPayload.get("svix-id");
   const svix_timestamp = headerPayload.get("svix-timestamp");
   const svix_signature = headerPayload.get("svix-signature");
+
+  console.log('Svix Headers:', {
+    svix_id,
+    svix_timestamp,
+    svix_signature
+  })
 
   if (!svix_id || !svix_timestamp || !svix_signature) {
     return new Response('Error occured -- no svix headers', {
@@ -34,7 +42,9 @@ export async function POST(req: Request) {
       "svix-timestamp": svix_timestamp,
       "svix-signature": svix_signature,
     }) as WebhookEvent
+    console.log('Verified webhook event:', evt)
   } catch (err) {
+    console.error('Error verifying webhook:', err)
     return new Response('Error occured', {
       status: 400
     })
@@ -42,6 +52,9 @@ export async function POST(req: Request) {
 
   const { id } = evt.data;
   const eventType = evt.type;
+
+  console.log('Event type:', eventType)
+  console.log('Event data:', evt.data)
 
   if (eventType === 'user.created') {
     if (!id) return new Response('No user id provided', { status: 400 });
@@ -59,24 +72,46 @@ export async function POST(req: Request) {
       imageUrl: image_url
     });
 
-    await prisma.user.create({
-      data: {
-        clerkId: id,
-        name,
-        email,
-        imageUrl: image_url
-      }
-    })
-
-    console.log('User created successfully');
+    try {
+      await prisma.user.create({
+        data: {
+          clerkId: id,
+          name,
+          email,
+          imageUrl: image_url
+        }
+      })
+      console.log('User created successfully')
+    } catch (error) {
+      console.error('Error creating user:', error)
+      return new Response('Error creating user', { status: 500 })
+    }
   }
 
   if (eventType === 'user.deleted') {
-    await prisma.user.delete({
-      where: {
-        clerkId: id
+    try {
+      // Verificar se o usuário existe antes de tentar deletar
+      const user = await prisma.user.findUnique({
+        where: { clerkId: id }
+      })
+
+      if (!user) {
+        console.log('User not found in database, skipping delete')
+        return new Response('User not found', { status: 200 })
       }
-    })
+
+      await prisma.user.delete({
+        where: {
+          clerkId: id
+        }
+      })
+
+      console.log('User deleted successfully')
+      return new Response('User deleted', { status: 200 })
+    } catch (error) {
+      console.error('Error deleting user:', error)
+      return new Response('Error deleting user', { status: 500 })
+    }
   }
 
   if (eventType === 'user.updated') {
